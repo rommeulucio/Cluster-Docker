@@ -2,10 +2,10 @@
 # vi: set ft=ruby  :
 
 machines = {
-  "master" => {"memory" => "512", "cpu" => "1", "ip" => "100", "image" => "bento/ubuntu-22.04"},
-  "node01" => {"memory" => "512", "cpu" => "1", "ip" => "101", "image" => "bento/ubuntu-22.04"},
-  "node02" => {"memory" => "512", "cpu" => "1", "ip" => "102", "image" => "bento/ubuntu-22.04"},
-  "node03" => {"memory" => "512", "cpu" => "1", "ip" => "103", "image" => "bento/ubuntu-22.04"}
+  "master" => {"memory" => "512", "cpu" => "1", "image" => "bento/ubuntu-22.04"},
+  "node01" => {"memory" => "512", "cpu" => "1", "image" => "bento/ubuntu-22.04"},
+  "node02" => {"memory" => "512", "cpu" => "1", "image" => "bento/ubuntu-22.04"},
+  "node03" => {"memory" => "512", "cpu" => "1", "image" => "bento/ubuntu-22.04"}
 }
 
 Vagrant.configure("2") do |config|
@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
     config.vm.define "#{name}" do |machine|
       machine.vm.box = "#{conf["image"]}"
       machine.vm.hostname = "#{name}"
-      machine.vm.network "private_network", ip: "10.10.10.#{conf["ip"]}"
+      machine.vm.network "public_network"
       machine.vm.provider "virtualbox" do |vb|
         vb.name = "#{name}"
         vb.memory = conf["memory"]
